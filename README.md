@@ -12,7 +12,7 @@ The application is deployed on Google Cloud Platform (GCP) and can be accessed h
 ## Code Files
 
 ### Backend & Server
-*   **`server.js`**: This file implements a Node.js server using the Express framework. It connects to the MySQL database and sets up the API Routes (endpoints like `/api/actors` and `/api/iocs`) using GET, POST, PUT, and DELETE methods. When the frontend asks for data or wants to save something new, `server.js` receives that request, safely constructs and runs the respective parameterized SQL queries (preventing SQL injection), and sends the results back to the frontend.Additionally, it includes database transaction logic with a `READ COMMITTED` isolation level to ensure atomicity and prevent dirty reads when simultaneously creating a Threat Actor and linking an IOC.
+*   **`server.js`**: This file implements a Node.js server using the Express framework. It connects to the MySQL database and sets up the API Routes (endpoints like `/api/actors-with-ioc` and `/api/iocs`) using GET, POST, PUT, and DELETE methods. When the frontend asks for data or wants to save something new, `server.js` receives that request, safely constructs and runs the respective parameterized SQL queries (preventing SQL injection), and sends the results back to the frontend. Additionally, it includes database transaction logic with a `READ COMMITTED` isolation level to ensure atomicity and prevent dirty reads when simultaneously creating a Threat Actor and linking an IOC.
 *   **`package.json`**: This file keeps track of the project's metadata and its dependencies (the external libraries the project needs to run, such as `express` for the server, `mysql2` to talk to the database, and `cors` for security).
 *   **`package-lock.json`**: Automatically generated file that locks down the exact versions of the dependencies so the project works identically everywhere.
 
@@ -30,6 +30,6 @@ The application is deployed on Google Cloud Platform (GCP) and can be accessed h
 ## Application Functionalities
 *   **View Threat Data**: Users can view a comprehensive list of Threat Actors and their associated Indicators of Compromise (IOCs) directly from the database.
 *   **Search and Filter**: The interface includes dynamic filtering by severity and searching by Threat Actor name to easily locate specific intelligence.
-*   **Add Records**: Users can seamlessly add new Threat Actors and IOCs. A specialized feature allows for the simultaneous creation of a Threat Actor and linking of an IOC, backed by an atomic database transaction.
-*   **Edit and Update**: Existing records for Threat Actors and IOCs can be modified and updated in real-time.
-*   **Delete Records**: Users have the ability to securely remove Threat Actors and IOCs from the database.
+*   **Add Records**: Users can add new Indicators of Compromise (IOCs) independently, or seamlessly create a new Threat Actor and link it to an IOC simultaneously, backed by an atomic database transaction.
+*   **Edit and Update**: Existing Indicators of Compromise (IOCs) can be modified and updated in real-time.
+*   **Delete Records**: Users have the ability to securely remove Indicators of Compromise (IOCs) from the database.

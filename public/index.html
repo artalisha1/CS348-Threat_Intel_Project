@@ -83,7 +83,10 @@
             <!-- Header area for the table - includes title and "Add New" button -->
             <div class="table-header">
                 <h2>Indicators of Compromise (IOCs)</h2>
-                <button id="addIocBtn" class="btn btn-success">+ Add New IOC</button>
+                <div style="display: flex; gap: 10px;">
+                    <button id="addTransactionBtn" class="btn btn-primary">+ Add Actor & IOC</button>
+                    <button id="addIocBtn" class="btn btn-success">+ Add New IOC</button>
+                </div>
             </div>
 
             <!-- Responsive table wrapper to make the table scrollable -->
@@ -130,8 +133,7 @@
                 <div class="form-group">
                     <label for="actorId" style="display: flex; justify-content: space-between;">
                         <span>Threat Actor *</span>
-                        <a href="#" id="openAddActorBtn"
-                            style="color: var(--primary-color); text-decoration: none; font-size: 0.8rem;">+ Add New</a>
+
                     </label>
                     <select id="actorId" name="actor_id" required>
                         <option value="">-- Select Actor --</option>
@@ -189,38 +191,82 @@
         </div>
     </div>
 
-    <!-- Add Actor Modal that allows users to add new threat actors -->
-    <!-- Modal container styled to overlay the entire screen -->
-    <div id="actorModal" class="modal" style="z-index: 60;">
-        <div class="modal-content">
+
+
+    <!-- Transaction Modal for adding both Actor and IOC simultaneously -->
+    <div id="transactionModal" class="modal" style="z-index: 60;">
+        <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
+            <!-- Header area for the modal -->
             <div class="modal-header">
-                <h2>Add Threat Actor</h2>
-                <span class="close-actor-btn"
+                <h2>Add Actor & IOC Simultaneously</h2>
+                <!-- Close button to dismiss the modal -->
+                <span class="close-transaction-btn"
                     style="cursor: pointer; font-size: 1.5rem; color: var(--text-muted);">&times;</span>
             </div>
-            <!-- The form used to submit new actor data -->
-            <form id="actorForm">
+            <!-- Form used to submit both new actor and new IOC data -->
+            <form id="transactionForm">
+                <h3
+                    style="margin-bottom: 1rem; color: var(--text-main); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                    Threat Actor Details</h3>
                 <!-- Form group for the Threat Actor Name text input -->
                 <div class="form-group">
-                    <label for="actorName">Name *</label>
-                    <input type="text" id="actorName" name="name" required placeholder="e.g. APT29">
+                    <label for="transActorName">Actor Name *</label>
+                    <input type="text" id="transActorName" name="name" required placeholder="e.g. APT29">
                 </div>
                 <!-- Form group for the Threat Actor Organization Type input -->
                 <div class="form-group">
-                    <label for="actorOrgType">Organization Type</label>
-                    <input type="text" id="actorOrgType" name="org_type" placeholder="e.g. State-Sponsored">
+                    <label for="transActorOrgType">Organization Type</label>
+                    <input type="text" id="transActorOrgType" name="org_type" placeholder="e.g. State-Sponsored">
                 </div>
                 <!-- Form group for the Threat Actor Origin Country input -->
                 <div class="form-group">
-                    <label for="actorOrigin">Origin Country</label>
-                    <input type="text" id="actorOrigin" name="origin_country" placeholder="e.g. Russia">
+                    <label for="transActorOrigin">Origin Country</label>
+                    <input type="text" id="transActorOrigin" name="origin_country" placeholder="e.g. Russia">
                 </div>
-                <!-- Modal controls which contain the cancel and save buttons -->
+
+                <!-- Section heading for the IOC details, separating it from the Actor details visually -->
+                <h3
+                    style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--text-main); font-size: 1.1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">
+                    IOC Details</h3>
+                <!-- Form group for the IOC Value text input -->
+                <div class="form-group">
+                    <label for="transIocValue">IOC Value *</label>
+                    <input type="text" id="transIocValue" name="ioc_value" required placeholder="e.g. 192.168.1.1">
+                </div>
+                <!-- Form group for selecting the IOC Type from a dropdown menu -->
+                <div class="form-group">
+                    <label for="transIocType">IOC Type *</label>
+                    <select id="transIocType" name="ioc_type" required>
+                        <option value="">-- Select Type --</option>
+                        <option value="IPv4">IPv4</option>
+                        <option value="Domain">Domain</option>
+                        <option value="MD5 Hash">MD5 Hash</option>
+                        <option value="File Name">File Name</option>
+                        <option value="Command">Command</option>
+                        <option value="SHA256 Hash">SHA256 Hash</option>
+                    </select>
+                </div>
+                <!-- Form group for selecting the Threat Severity level from a dropdown menu -->
+                <div class="form-group">
+                    <label for="transSeverity">Severity *</label>
+                    <select id="transSeverity" name="severity" required>
+                        <option value="">-- Select Severity --</option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+                </div>
+                <!-- Form group for adding a multi-line textual description of the IOC -->
+                <div class="form-group">
+                    <label for="transDescription">Description</label>
+                    <textarea id="transDescription" name="description" rows="2"
+                        placeholder="Additional context"></textarea>
+                </div>
+                <!-- Cancel and Save buttons for the overall form -->
                 <div class="modal-footer" style="margin-top: 1.5rem;">
-                    <!-- Button to close the modal without saving any changes -->
-                    <button type="button" class="btn btn-secondary close-actor-btn">Cancel</button>
-                    <!-- Submit button that triggers the actorForm submission event -->
-                    <button type="submit" class="btn btn-primary">Save Actor</button>
+                    <button type="button" class="btn btn-secondary close-transaction-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Both</button>
                 </div>
             </form>
         </div>

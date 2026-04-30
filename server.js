@@ -64,31 +64,6 @@ app.get('/api/actors', (req, res) => {
     });
 });
 
-// POST route to add a brand new Threat Actor to the database
-app.post('/api/actors', (req, res) => {
-    // Extract the incoming data from the request body
-    const { name, org_type, origin_country } = req.body;
-
-    // Validate that the actor name is provided
-    if (!name) {
-        // If missing, return a 400 Bad Request
-        return res.status(400).json({ error: 'Actor name is required' });
-    }
-
-    // SQL query to insert a new row into the ThreatActors table
-    // uses parameterized queries to prevent SQL injection attacks
-    // The '?' characters act as placeholders for the actual data
-    const query = 'INSERT INTO ThreatActors (name, org_type, origin_country) VALUES (?, ?, ?)';
-    // Execute the query, passing the values from the request as an array
-    // The mysql2 library escapes and sanitizes the input before executing,
-    // preventing SQL injection attacks as user input is treated strictly as data
-    pool.query(query, [name, org_type, origin_country], (err, result) => {
-        // If there is a database error, return a 500 status code
-        if (err) return res.status(500).json({ error: err.message });
-        // On success, return the newly generated ID and a success message
-        res.json({ id: result.insertId, message: 'Threat Actor added successfully' });
-    });
-});
 
 // GET Indicators of Compromise (optional filters)
 app.get('/api/iocs', (req, res) => {

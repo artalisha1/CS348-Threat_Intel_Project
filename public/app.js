@@ -22,11 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the dropdown for actors in the form
     const modalActorSelect = document.getElementById('actorId');
 
-    // Actor Modal Elements - for adding/editing actors
-    const actorModal = document.getElementById('actorModal');
-    const openAddActorBtn = document.getElementById('openAddActorBtn');
-    const closeActorBtns = document.querySelectorAll('.close-actor-btn');
-    const actorForm = document.getElementById('actorForm');
+
+
+    // Transaction Modal Elements
+    const transactionModal = document.getElementById('transactionModal');
+    const addTransactionBtn = document.getElementById('addTransactionBtn');
+    const closeTransactionBtns = document.querySelectorAll('.close-transaction-btn');
+    const transactionForm = document.getElementById('transactionForm');
+
     // Base URL for API requests
     //const API_BASE = 'http://localhost:3000/api';
 
@@ -272,74 +275,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Attach a click event listener to the "Add New" Actor button
-    openAddActorBtn.addEventListener('click', (e) => {
-        // Prevent the default form submission when the button is clicked
-        e.preventDefault();
-        // Clear out any stale text remaining in the new actor form
-        actorForm.reset();
-        // Show the actor modal overlay
-        actorModal.classList.add('show');
-    });
-
-    // Loop through all close buttons for the Actor Modal
-    closeActorBtns.forEach(btn => {
-        // Attach a click event listener to each specific button
-        btn.addEventListener('click', () => {
-            // Hide the actor modal overlay
-            actorModal.classList.remove('show');
+    // Add click event listener to the "+ Add Actor & IOC" button (transaction modal)
+    if (addTransactionBtn) {
+        addTransactionBtn.addEventListener('click', () => {
+            // Reset the form to remove any remaining text
+            transactionForm.reset();
+            // Display the transaction modal overlay
+            transactionModal.classList.add('show');
         });
-    });
+    }
 
-    // Listen globally for any clicks anywhere on the entire browser window
-    window.addEventListener('click', (e) => {
-        // Check if the exact element clicked was the dark background overlay itself
-        if (e.target === actorModal) {
-            // Hide the actor modal if the user purposefully clicked outside the white box
-            actorModal.classList.remove('show');
-        }
-    });
-
-    // Listen for the standard form submission event on the new Actor form
-    actorForm.addEventListener('submit', async (e) => {
-        // Prevent the default form submission when the button is clicked
-        e.preventDefault();
-
-        // Collect all user-typed input field values from the form
-        const formData = new FormData(actorForm);
-        // Translate raw form values into a standard JavaScript object map
-        const data = Object.fromEntries(formData.entries());
-
-        try {
-            // Initiate a POST request to the backend Node/Express server routing
-            const res = await fetch(`${API_BASE}/actors`, {
-                method: 'POST',
-                // Explicitly tell Express that we are sending JSON formatted payload data
-                headers: { 'Content-Type': 'application/json' },
-                // Convert our JS object map into a raw JSON string to be transmitted
-                body: JSON.stringify(data)
+    // Add click event listener to the "Close Transaction Modal" button (transaction modal)
+    if (closeTransactionBtns) {
+        closeTransactionBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Hide the transaction modal overlay
+                transactionModal.classList.remove('show');
             });
+        });
+    }
 
-            // If the backend server responds with a 2xx success status code
-            if (res.ok) {
-                // Parse the JSON response to capture the new actor
-                const newActor = await res.json();
-                // Remove modal from the user's view upon completion
-                actorModal.classList.remove('show');
-                // Trigger a full re-fetch of the actors list to sync dropdowns
-                await fetchActors();
-                // Automatically assign the dropdown's select value to the new Actor ID
-                document.getElementById('actorId').value = newActor.id;
-            } else {
-                // Parse the exact error reason transmitted by the backend validation
-                const errorData = await res.json();
-                // Display that specific server error as a popup alert
-                alert(`Error: ${errorData.error}`);
-            }
-        } catch (error) {
-            // Catch catastrophic failures (e.g., server completely crashed/offline)
-            console.error('Error saving Actor:', error);
+    // Listen for outside click on transaction modal
+    window.addEventListener('click', (e) => {
+        if (transactionModal && e.target === transactionModal) {
+            // Hide the transaction modal overlay
+            transactionModal.classList.remove('show');
         }
     });
+
+    // Listen for the form submission event on the new Transaction form
+    if (transactionForm) {
+        transactionForm.addEventListener('submit', async (e) => {
+            // Prevent the default form submission when the button is clicked
+            e.preventDefault();
+            // Collect all user-typed input field values from the form
+            const formData = new FormData(transactionForm);
+            // Translate form values into a standard JavaScript object
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // Initiate a POST request to the backend server
+                const res = await fetch(`${API_BASE}/actors-with-ioc`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    // Convert JS object into a JSON string
+                    body: JSON.stringify(data)
+                });
+
+                // If the backend server responds with a 2xx success status code
+                if (res.ok) {
+                    // Remove the transaction modal from the user's view
+                    transactionModal.classList.remove('show');
+                    // Refresh the actors dropdown and the main IOCs table
+                    await fetchActors();
+                    fetchIOCs();
+                    // otherwise handle the error
+                } else {
+                    const errorData = await res.json();
+                    alert(`Error: ${errorData.error || 'Transaction failed'}`);
+                }
+            } catch (error) {
+                console.error('Error saving transaction:', error);
+            }
+        });
+    }
 
 });
