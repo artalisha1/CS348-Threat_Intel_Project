@@ -1,0 +1,387 @@
+/* Custom CSS Variables defining the global design system colors and sizes */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success-color: #10b981;
+  --success-hover: #059669;
+  --danger-color: #ef4444;
+  --danger-hover: #dc2626;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --border-radius: 8px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Base reset to standardize margins and padding across all web browsers */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global body styling, applying standard crisp typography and light grey background */
+body {
+  font-family: sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header styling, creating a white bar with a subtle bottom shadow at the top */
+header {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 2rem;
+}
+
+/* Header layout wrapper, using flexbox to space and center content horizontally */
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Header main title typography, large and bold */
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Header subtitle typography, smaller and greyed out */
+header p {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Main page layout container, stacking the sections vertically with a gap */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* White card panel styling for sections, giving them a border, rounded corners, and shadow */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+/* Card sub-heading typography for section titles */
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  color: var(--text-main);
+}
+
+/* Form layout, grouping elements into a flex row that wraps on smaller screens */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+
+/* Individual form group container, stacking the label directly above its input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Small grey descriptive labels floating above form inputs */
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* Global styling for text inputs, dropdowns, and text areas */
+input,
+select,
+textarea {
+  padding: 0.625rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: sans-serif;
+  color: var(--text-main);
+  background-color: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Input focus state, applying a subtle blue glow when a user clicks inside to type */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Specialized column holding the row of filter form action buttons */
+.submit-col {
+  flex-direction: row;
+  gap: 0.5rem;
+  flex: 0;
+  min-width: max-content;
+}
+
+/* Global button styling, applying basic padding, font, and smooth hover transitions */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: sans-serif;
+}
+
+/* Blue primary action button used for submitting or saving actions */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Grey secondary action button used for canceling or clearing actions */
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+/* Green success action button used strictly for creating new data */
+.btn-success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: var(--success-hover);
+}
+
+/* Red danger action button used strictly for destructive actions like deleting */
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-hover);
+}
+
+/* Small edit action button used exclusively inside the data table rows */
+.btn-edit {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+}
+
+.btn-edit:hover {
+  background-color: #e2e8f0;
+}
+
+/* Data table top header area layout, spacing the title and the add button */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive table wrapper allowing horizontally scrolling tables on narrow mobile screens */
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Main HTML table styling, filling the space and collapsing double borders */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Table top headers row, giving a light grey background and spaced uppercase text */
+thead th {
+  background-color: #f8fafc;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Standard table data cells, padded generously with bottom borders */
+tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.875rem;
+  color: var(--text-main);
+}
+
+/* Removes the bottom border from the very last table row to look cleaner against the card */
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Animates the row hover color transition continuously */
+tbody tr {
+  transition: background-color 0.2s;
+}
+
+/* Applies a very subtle grey background when a user hovers their mouse over a specific data row */
+tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Badge container, creating a distinct pill-shaped colored highlight */
+.badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Specific badge coloring configurations for different severity levels */
+.badge-low {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-medium {
+  background-color: #fef9c3;
+  color: #854d0e;
+}
+
+.badge-high {
+  background-color: #ffedd5;
+  color: #9a3412;
+}
+
+.badge-critical {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Full-screen semi-transparent dark overlay background for the modal popup */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+  padding-top: 50px;
+}
+
+/* Utility class dynamically injected by JS to fade the modal onto the screen */
+.modal.show {
+  display: block;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Native CSS Keyframe animation mathematically defining the fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* White popup box container centered nicely within the modal overlay screen */
+.modal-content {
+  background-color: var(--card-bg);
+  margin: 5% auto;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  max-width: 500px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Header of the modal, keeping the title and the close X button spaced horizontally */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+/* The X text representing the close button to dismiss the modal overlay */
+.close-btn {
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.1s;
+}
+
+.close-btn:hover {
+  color: var(--text-main);
+}
+
+/* Footer section of the modal pinned to the bottom, holding the save and cancel form actions */
+.modal-footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Spacing tweak for form groups when they are squished exclusively inside a modal box */
+.modal form .form-group {
+  margin-bottom: 1rem;
+}
