@@ -27,9 +27,9 @@ The application is deployed on Google Cloud Platform (GCP) and can be accessed h
 ### Cloud Deployment
 *   **`app.yaml`**: This file is a configuration file used by Google Cloud Platform. It tells GCP how to run the application (e.g., using Node.js) and sets up the environment when deploying the app to App Engine.
 
-## How it all connects
-1.  **User Action**: You open the webpage (`index.html`) and click a button or submit a form. The browser runs the logic in `app.js`.
-2.  **API Request**: `app.js` sends an HTTP request over the internet to the backend server (`server.js`).
-3.  **Database Query**: `server.js` interprets the request and securely communicates with the MySQL database (structured by `init_db.sql`) to fetch or modify data.
-4.  **Response**: The database sends the result back to `server.js`, which then forwards it to the browser as JSON data.
-5.  **UI Update**: `app.js` receives the data and updates the `index.html` page so you can see the new information.
+## Application Functionalities
+*   **View Threat Data**: Users can view a comprehensive list of Threat Actors and their associated Indicators of Compromise (IOCs) directly from the database.
+*   **Search and Filter**: The interface includes dynamic filtering by severity and searching by Threat Actor name to easily locate specific intelligence.
+*   **Add Records**: Users can seamlessly add new Threat Actors and IOCs. A specialized feature allows for the simultaneous creation of a Threat Actor and linking of an IOC, backed by an atomic database transaction.
+*   **Edit and Update**: Existing records for Threat Actors and IOCs can be modified and updated in real-time.
+*   **Delete Records**: Users have the ability to securely remove Threat Actors and IOCs from the database.
